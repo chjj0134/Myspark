@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonSceneController : MonoBehaviour
+public class MainSceneController : MonoBehaviour
 {
     public Image characterImage; // Button/1 씬의 이미지
     public Sprite sprite1;       // 스프라이트 1
