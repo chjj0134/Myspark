@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class BackToMain : MonoBehaviour
 {
-    // 버튼을 Unity 에디터에서 할당할 수 있도록 공개
     public Button backButton;
 
     void Start()

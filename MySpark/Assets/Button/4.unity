@@ -834,6 +834,53 @@ RectTransform:
   m_AnchoredPosition: {x: -376, y: -97}
   m_SizeDelta: {x: 98.53, y: 98.859985}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &571583256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 571583258}
+  - component: {fileID: 571583257}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &571583257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571583256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06bf8588f5385fa4498763cd42bdfe06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  washButton1: {fileID: 1771532362}
+  washButton2: {fileID: 1387774537}
+  fatigueReduction: -2
+--- !u!4 &571583258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571583256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5900419, y: 0.66467464, z: 856.01086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &677456287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 712760102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1389587ca94d80246a4b3905af69b220, type: 3}
+  m_Script: {fileID: 11500000, guid: d123579f89787254aa59b401c3869f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterImage: {fileID: 712760105}
@@ -2362,7 +2409,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1771532363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 571583256}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1771532363
 MonoBehaviour:
   m_ObjectHideFlags: 0
