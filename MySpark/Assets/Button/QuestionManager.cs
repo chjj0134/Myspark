@@ -13,14 +13,36 @@ public class QuestionManager : MonoBehaviour
     private Question currentQuestion;
     private int currentQuestionIndex = 0;
     private int maxQuestions = 10;  // 총 10문제
+    private int correctAnswersCount = 0;  // 정답 맞춘 횟수
     public Color correctColor = Color.green;
     public Color wrongColor = Color.red;
     public Color defaultColor = Color.white;
 
+    public GameObject resultPopup;  // 결과 팝업 창
+    public TextMeshProUGUI wisdomText;  // 지혜로움 수치 텍스트
+    public TextMeshProUGUI experienceText;  // 경험치 수치 텍스트
+    public TextMeshProUGUI candyText;  // 지혜사탕 수치 텍스트 (새로 추가된 부분)
+    public int baseRewardWisdom = 4;  // 기본 지혜로움 보상
+    public int baseRewardExperience = 10;  // 기본 경험치 보상
+    public int bonusWisdom = 1;  // 7개 이상 맞추면 추가로 주는 지혜사탕
+    public int bonusExperience = 10;  // 7개 이상 맞추면 추가로 주는 경험치
+    public GameObject blackOverlay;  // Black 오브젝트
+
+    private int currentLevel;
+
     void Start()
     {
         LoadQuestions();
-        SetQuestionForLevel(1);
+        if (ExperienceManager.Instance != null)
+        {
+            currentLevel = ExperienceManager.Instance.레벨;
+        }
+        else
+        {
+            currentLevel = 1;  // ExperienceManager가 없으면 기본 레벨 설정
+        }
+
+        SetQuestionForLevel(currentLevel);
     }
 
     // 질문을 로드하는 함수 (각 레벨에 맞는 질문을 하드코딩)
@@ -88,9 +110,20 @@ public class QuestionManager : MonoBehaviour
     // 특정 레벨에 해당하는 질문을 설정하는 함수
     public void SetQuestionForLevel(int level)
     {
+        currentLevel = level;  // 현재 레벨 저장
+
         // 질문을 10번 초과하면 종료 처리
         if (currentQuestionIndex >= maxQuestions)
         {
+            // 7개 이상 맞췄으면 보상 지급
+            if (correctAnswersCount >= 7)
+            {
+                GiveRewards();  // 보상 지급
+            }
+
+            ShowResultPopup();  // 결과 팝업 창 표시
+            Debug.Log("ShowResultPopup 호출 완료!");  // 디버그 로그 추가
+
             // 질문 텍스트를 "모든 대화를 완료하였습니다!"로 설정
             questionText.text = "모든 대화를 완료하였습니다!";
 
@@ -109,7 +142,7 @@ public class QuestionManager : MonoBehaviour
                 StatManager.Instance.SaveStatsToPlayerPrefs();  // 스탯 저장
             }
 
-             return;
+            return;  // 질문 종료 후 메소드 종료
         }
 
         // 해당 레벨에 질문이 있는지 확인
@@ -125,7 +158,7 @@ public class QuestionManager : MonoBehaviour
 
         if (availableQuestions.Count == 0)
         {
-            //Debug.Log("더 이상 새로운 질문이 없습니다.");
+            Debug.Log("더 이상 새로운 질문이 없습니다.");
             return;
         }
 
@@ -172,8 +205,6 @@ public class QuestionManager : MonoBehaviour
     }
 
 
-
-
     // 답변을 무작위로 섞는 함수
     private void ShuffleAnswers(List<string> answers)
     {
@@ -187,15 +218,18 @@ public class QuestionManager : MonoBehaviour
     }
 
     // 정답을 선택했을 때 호출될 함수
-    private System.Collections.IEnumerator OnCorrectAnswer(Button button)
+    private IEnumerator OnCorrectAnswer(Button button)
     {
+        correctAnswersCount++;  // 정답 횟수 증가
+        Debug.Log("정답");
+
         button.GetComponent<Image>().color = correctColor;  // 정답 버튼을 초록색으로 변경
         yield return new WaitForSeconds(0.5f);  // 0.5초 후
         SetQuestionForLevel(1);  // 다음 질문 설정 (레벨에 맞게 변경 가능)
     }
 
     // 오답을 선택했을 때 호출될 함수
-    private System.Collections.IEnumerator OnWrongAnswer(Button button)
+    private IEnumerator OnWrongAnswer(Button button)
     {
         button.GetComponent<Image>().color = wrongColor;  // 오답 버튼을 빨간색으로 변경
         foreach (var btn in answerButtons)
@@ -208,6 +242,60 @@ public class QuestionManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);  // 0.5초 후
         SetQuestionForLevel(1);  // 다음 질문 설정 (레벨에 맞게 변경 가능)
+    }
+
+    private void GiveRewards()
+    {
+        int totalWisdom = baseRewardWisdom;  // 기본 지혜로움 보상
+        int totalExperience = baseRewardExperience;  // 기본 경험치 보상
+        int totalCandies = 0;  // 지혜사탕 개수 (기본값 0)
+        if (correctAnswersCount >= 7)
+        {
+            totalCandies = bonusWisdom;  // 추가 지혜사탕 보상 (7개 이상 맞추면)
+            totalExperience += bonusExperience;  // 추가 경험치 보상
+        }
+
+        // StatManager에 보상을 반영
+        if (StatManager.Instance != null)
+        {
+            StatManager.Instance.AdjustStat("지혜로움", totalWisdom);  // 지혜로움 추가
+            StatManager.Instance.AdjustStat("경험치", totalExperience);  // 경험치 추가
+            StatManager.Instance.AdjustStat("지혜사탕", totalCandies);  // 지혜사탕 추가
+            StatManager.Instance.SaveStatsToPlayerPrefs();  // 스탯 저장
+        }
+
+        // 결과 팝업에 보상 표시
+        wisdomText.text = $"스파크의 지혜로움 +{totalWisdom}";
+        experienceText.text = $"경험치 +{totalExperience}";
+
+        // 지혜사탕 텍스트에 지혜사탕 값 표시
+        if (totalCandies > 0)
+        {
+            candyText.text = $"지혜사탕 +{totalCandies}";
+        }
+        else
+        {
+            candyText.text = "0";  // 지혜사탕 보상이 없을 경우 빈 문자열로 설정
+        }
+    }
+
+    private void ShowResultPopup()
+    {
+        if (resultPopup != null)
+        {
+            resultPopup.SetActive(true);  // 결과 팝업 창 활성화
+
+            if (blackOverlay != null)
+            {
+                blackOverlay.SetActive(true);  // Black 오브젝트 활성화
+            }
+
+            Debug.Log("결과 팝업이 활성화되었습니다.");
+        }
+        else
+        {
+            Debug.LogError("resultPopup이 할당되지 않았습니다!");
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,15 +15,20 @@ public class Wash : MonoBehaviour
         DisableButton(washButton2);
 
         // 버튼 클릭 이벤트에 피로도 감소 함수 연결
-        washButton1.onClick.AddListener(ActivateWashButton2);
+        washButton1.onClick.AddListener(ActivateWashButton2WithDelay);
         washButton2.onClick.AddListener(ReduceFatigue);
     }
 
-    // washButton1 클릭 시 버튼1을 비활성화하고 버튼2를 활성화하는 함수
-    private void ActivateWashButton2()
+    // washButton1 클릭 시 Shower Eff 재생 및 버튼1을 비활성화 후 버튼2 활성화
+    private void ActivateWashButton2WithDelay()
     {
-        DisableButton(washButton1);
-        EnableButton(washButton2);
+        // Shower Eff 사운드 재생
+        SoundManager.instance.PlaySpecialEffect("ShowerButton");
+
+        // Shower Eff가 끝난 후 버튼2 활성화
+        float showerEffDuration = SoundManager.instance.showerEff.length;
+        DisableButton(washButton1); // 버튼1 비활성화
+        StartCoroutine(EnableButtonAfterDelay(washButton2, showerEffDuration)); // Shower Eff 끝난 후 버튼2 활성화
     }
 
     // 피로도 감소 기능 (washButton2 클릭 시 호출)
@@ -36,10 +42,11 @@ public class Wash : MonoBehaviour
             // 피로도 스탯을 저장
             StatManager.Instance.SaveStatsToPlayerPrefs();
 
+            // Bubble Eff 사운드 재생
+            SoundManager.instance.PlaySpecialEffect("BubbleButton");
+
             // 버튼2를 비활성화
             DisableButton(washButton2);
-
-            //Debug.Log($"피로도가 {fatigueReduction}만큼 감소되었습니다. 현재 피로도: {StatManager.Instance.피로도}");
         }
         else
         {
@@ -63,5 +70,12 @@ public class Wash : MonoBehaviour
         var colors = button.colors;
         colors.disabledColor = new Color(0.7f, 0.7f, 0.7f); // 비활성화 시 회색으로 설정
         button.colors = colors;
+    }
+
+    // 일정 시간 후 버튼을 활성화하는 코루틴
+    private IEnumerator EnableButtonAfterDelay(Button button, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EnableButton(button);
     }
 }

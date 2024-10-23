@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 321612445}
   m_Layer: 5
   m_Name: 2
-  m_TagString: Untagged
+  m_TagString: BuyButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 330476825}
   m_Layer: 5
   m_Name: 3
-  m_TagString: Untagged
+  m_TagString: BuyButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1391,7 +1391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 557137115}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayButtonSE
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &557137115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,8 +1476,8 @@ GameObject:
   - component: {fileID: 651360991}
   - component: {fileID: 651360990}
   m_Layer: 0
-  m_Name: 3
-  m_TagString: Untagged
+  m_Name: EatButton3
+  m_TagString: EatButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1943,6 +1955,18 @@ MonoBehaviour:
       - m_Target: {fileID: 678324872}
         m_TargetAssemblyTypeName: PopupController, Assembly-CSharp
         m_MethodName: ShowPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayButtonSE
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2439,7 +2463,7 @@ GameObject:
   - component: {fileID: 816142603}
   m_Layer: 5
   m_Name: 1
-  m_TagString: Untagged
+  m_TagString: BuyButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2560,8 +2584,8 @@ GameObject:
   - component: {fileID: 863868226}
   - component: {fileID: 863868225}
   m_Layer: 0
-  m_Name: 1
-  m_TagString: Untagged
+  m_Name: EatButton1
+  m_TagString: EatButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3441,8 +3465,8 @@ GameObject:
   - component: {fileID: 1439493267}
   - component: {fileID: 1439493266}
   m_Layer: 0
-  m_Name: 4
-  m_TagString: Untagged
+  m_Name: EatButton4
+  m_TagString: EatButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3602,8 +3626,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterImage: {fileID: 1448502401}
-  sprite1: {fileID: 21300000, guid: 1102ac02460920e48b7c61b842037f16, type: 3}
-  sprite2: {fileID: 21300000, guid: c44960da2a1bce84b8975c464bf6761a, type: 3}
+  sprite1Levels:
+  - {fileID: 21300000, guid: 2efc52a0276f1ed46b1130be8decd4f7, type: 3}
+  - {fileID: 21300000, guid: 0bf1ff31e2974704d97422cd7cc93ead, type: 3}
+  - {fileID: 21300000, guid: 0bf1ff31e2974704d97422cd7cc93ead, type: 3}
+  - {fileID: 21300000, guid: 82b13892bd10b864a935defe516f7a35, type: 3}
+  sprite2Levels:
+  - {fileID: 21300000, guid: e2750a057e6f20f40b377943d43563af, type: 3}
+  - {fileID: 21300000, guid: 3713edc6c2cab14418fcb9d52bc3c0e1, type: 3}
+  - {fileID: 21300000, guid: 20630044657201e48b59e23d12c7629c, type: 3}
+  - {fileID: 21300000, guid: 244fa22f03fe6934aa65b486d1bb41de, type: 3}
 --- !u!114 &1448502401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4229,8 +4261,8 @@ GameObject:
   - component: {fileID: 1949968598}
   - component: {fileID: 1949968597}
   m_Layer: 0
-  m_Name: 2
-  m_TagString: Untagged
+  m_Name: EatButton2
+  m_TagString: EatButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

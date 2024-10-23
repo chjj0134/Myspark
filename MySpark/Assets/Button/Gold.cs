@@ -46,6 +46,9 @@ public class Gold : MonoBehaviour
                     itemUsageManager.UpdateItemUI(); // UI 업데이트
                 }
 
+                // 사운드 재생
+                SoundManager.instance.PlaySpecialEffect("BuyButton");
+
                 StatManager.Instance.SaveStatsToPlayerPrefs(); // 차감된 골드와 소지한 아이템 갯수 저장
                 UpdateGoldUI(); // UI 업데이트
             }

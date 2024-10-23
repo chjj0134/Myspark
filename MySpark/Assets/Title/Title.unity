@@ -463,7 +463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.00000047684, y: -152.98}
+  m_AnchoredPosition: {x: -0.00000047684, y: -152.97998}
   m_SizeDelta: {x: 406.03, y: 204.52002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &769300042
@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Select/Select
+  delayBeforeNextTouch: 1
 --- !u!4 &1190674030
 Transform:
   m_ObjectHideFlags: 0
@@ -692,3 +693,96 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6533383983648591183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12075259
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.782123
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 290.49042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925730, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: buyEff
+      value: 
+      objectReference: {fileID: 8300000, guid: d8ebc4b9e529acd499cb2b5e725dc9d0, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: eatEff
+      value: 
+      objectReference: {fileID: 8300000, guid: c68feb01491f21c45a75b3ef4e90fa6b, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: sleepEff
+      value: 
+      objectReference: {fileID: 8300000, guid: d421b333bf46dcf449a3df8d03680116, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: bubbleEff
+      value: 
+      objectReference: {fileID: 8300000, guid: 390aaa4e6a119d8488c8bcdd925bee24, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: buttonEff
+      value: 
+      objectReference: {fileID: 8300000, guid: c8dbc8200ba80c9488a60fdabea63e60, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: showerEff
+      value: 
+      objectReference: {fileID: 8300000, guid: 322a43713977f38439757f20de297cdf, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: defaultBGM
+      value: 
+      objectReference: {fileID: 8300000, guid: e58576102f736b04e8791f29f7dcf62f, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: levelUpEff
+      value: 
+      objectReference: {fileID: 8300000, guid: 40501722221b2ec4b96a99d27ed2f73a, type: 3}
+    - target: {fileID: 6533383984654925731, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: miniGameBGM
+      value: 
+      objectReference: {fileID: 8300000, guid: 18c8e27b49f1c4946bca400ac62f53a8, type: 3}
+    - target: {fileID: 6533383984654925733, guid: f6c588949f47fcd45bb05d8054223185, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6c588949f47fcd45bb05d8054223185, type: 3}

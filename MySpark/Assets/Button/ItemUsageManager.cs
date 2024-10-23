@@ -11,7 +11,7 @@ public class ItemUsageManager : MonoBehaviour
     private void Start()
     {
         // 각 버튼의 클릭 이벤트에 대응하는 스탯 변화 함수 연결
-        itemButtons[0].onClick.AddListener(() => UseItem(0, 2, 2));  // 1번 버튼: 허기 +2, 관심도 +2
+        itemButtons[0].onClick.AddListener(() => UseWisdomItem(0));  // 1번 버튼: 지혜로움 +1
         itemButtons[1].onClick.AddListener(() => UseItem(1, -2, 0)); // 2번 버튼: 허기 -2
         itemButtons[2].onClick.AddListener(() => UseItem(2, -5, 0)); // 3번 버튼: 허기 -5
         itemButtons[3].onClick.AddListener(() => UseItem(3, -8, 0)); // 4번 버튼: 허기 -8
@@ -20,12 +20,35 @@ public class ItemUsageManager : MonoBehaviour
         UpdateItemUI();
     }
 
-    // 아이템을 사용하고 스탯을 조정하는 함수
+    // 1번 버튼의 아이템을 사용하고 지혜로움 +1을 추가하는 함수
+    private void UseWisdomItem(int itemIndex)
+    {
+        if (itemCounts[itemIndex] <= 0)
+        {
+            // 아이템이 없으면 아무 동작도 하지 않음
+            return;
+        }
+
+        // 지혜로움 스탯 +1
+        StatManager.Instance.지혜로움 = Mathf.Clamp(StatManager.Instance.지혜로움 + 1, 0, 10);
+
+        // 아이템 사용 후 소지 갯수 차감
+        itemCounts[itemIndex]--;
+
+        // Eat Eff 사운드 재생
+        SoundManager.instance.PlaySpecialEffect("EatButton");
+
+        // 스탯 저장 및 UI 업데이트
+        StatManager.Instance.SaveStatsToPlayerPrefs();
+        UpdateItemUI();
+    }
+
+    // 다른 아이템을 사용하고 스탯을 조정하는 함수
     private void UseItem(int itemIndex, int hungerChange, int interestChange)
     {
-        if (itemIndex != 0 && itemCounts[itemIndex] <= 0)
+        if (itemCounts[itemIndex] <= 0)
         {
-            //Debug.Log("아이템이 없습니다.");
+            // 아이템이 없으면 아무 동작도 하지 않음
             return;
         }
 
@@ -34,7 +57,10 @@ public class ItemUsageManager : MonoBehaviour
         StatManager.Instance.관심도 = Mathf.Clamp(StatManager.Instance.관심도 + interestChange, 0, 15);
 
         // 아이템 사용 후 소지 갯수 차감
-        if (itemIndex != 0) itemCounts[itemIndex]--;
+        itemCounts[itemIndex]--;
+
+        // Eat Eff 사운드 재생
+        SoundManager.instance.PlaySpecialEffect("EatButton");
 
         // 스탯 저장 및 UI 업데이트
         StatManager.Instance.SaveStatsToPlayerPrefs();
@@ -46,20 +72,13 @@ public class ItemUsageManager : MonoBehaviour
     {
         for (int i = 0; i < itemButtons.Length; i++)
         {
-            if (i == 0) // 1번 버튼은 항상 활성화
+            if (itemCounts[i] > 0)
             {
-                itemButtons[i].interactable = true;
+                EnableButton(itemButtons[i]);
             }
             else
             {
-                if (itemCounts[i] > 0)
-                {
-                    EnableButton(itemButtons[i]);
-                }
-                else
-                {
-                    DisableButton(itemButtons[i]);
-                }
+                DisableButton(itemButtons[i]);
             }
 
             // 아이템 갯수 텍스트 업데이트

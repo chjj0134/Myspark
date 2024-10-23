@@ -16,6 +16,8 @@ public class ExperienceManager : MonoBehaviour
     public Slider 경험치Slider;
     public TextMeshProUGUI 레벨Text;
 
+    private SoundManager soundManager;
+
     private void Awake()
     {
         if (Instance == null)
@@ -98,6 +100,11 @@ public class ExperienceManager : MonoBehaviour
     {
         레벨 += 1;  // 레벨 증가
         현재경험치 -= 경험치최대값;  // 남은 경험치 반영
+
+        if (soundManager != null)
+        {
+            soundManager.PlayLevelUpSE();  // 레벨업 효과음 재생
+        }
     }
 
     // UI를 업데이트하는 메서드

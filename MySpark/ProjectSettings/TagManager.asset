@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SleepButton
+  - BubbleButton
+  - ShowerButton
+  - EatButton
+  - BuyButton
   layers:
   - Default
   - TransparentFX
@@ -38,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: bac
+    uniqueID: 3026252089
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
