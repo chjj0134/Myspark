@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainSceneController : MonoBehaviour
 {
-    public Image characterImage; // Button/1 씬의 이미지
+    public SpriteRenderer characterSpriteRenderer; // 캐릭터의 SpriteRenderer
 
     // 두 캐릭터의 레벨별 스프라이트 배열
     public Sprite[] sprite1Levels = new Sprite[4]; // sprite1의 레벨별 스프라이트 배열
@@ -15,14 +14,14 @@ public class MainSceneController : MonoBehaviour
         string selectedSprite = PlayerPrefs.GetString("SelectedSprite");
         int selectedSpriteLevel = PlayerPrefs.GetInt("SelectedSpriteLevel", 0); // 기본값 0
 
-        // 선택된 캐릭터와 레벨에 따라 이미지에 스프라이트를 표시
+        // 선택된 캐릭터와 레벨에 따라 SpriteRenderer의 스프라이트를 설정
         if (selectedSprite == "Sprite1")
         {
-            characterImage.sprite = sprite1Levels[selectedSpriteLevel];
+            characterSpriteRenderer.sprite = sprite1Levels[selectedSpriteLevel];
         }
         else if (selectedSprite == "Sprite2")
         {
-            characterImage.sprite = sprite2Levels[selectedSpriteLevel];
+            characterSpriteRenderer.sprite = sprite2Levels[selectedSpriteLevel];
         }
     }
 }

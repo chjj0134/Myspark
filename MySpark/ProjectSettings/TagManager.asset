@@ -16,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - 1
   - 
   - 
   - 
@@ -45,6 +45,12 @@ TagManager:
   m_SortingLayers:
   - name: bac
     uniqueID: 3026252089
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 2459248291
+    locked: 0
+  - name: New Layer 3
+    uniqueID: 1527975901
     locked: 0
   - name: Default
     uniqueID: 0

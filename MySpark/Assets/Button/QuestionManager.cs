@@ -19,6 +19,7 @@ public class QuestionManager : MonoBehaviour
     public Color defaultColor = Color.white;
 
     public GameObject resultPopup;  // 결과 팝업 창
+    public TextMeshProUGUI resultMessageText;  // 결과 팝업창의 메시지 텍스트
     public TextMeshProUGUI wisdomText;  // 지혜로움 수치 텍스트
     public TextMeshProUGUI experienceText;  // 경험치 수치 텍스트
     public TextMeshProUGUI candyText;  // 지혜사탕 수치 텍스트 (새로 추가된 부분)
@@ -28,11 +29,18 @@ public class QuestionManager : MonoBehaviour
     public int bonusExperience = 10;  // 7개 이상 맞추면 추가로 주는 경험치
     public GameObject blackOverlay;  // Black 오브젝트
 
+    private string correctMessage;
+    private string wrongMessage;
+
+    public TextMeshProUGUI answerMessageText;
     private int currentLevel;
+    private string selectedSprite; // 선택된 스프라이트
+
 
     void Start()
     {
         LoadQuestions();
+
         if (ExperienceManager.Instance != null)
         {
             currentLevel = ExperienceManager.Instance.레벨;
@@ -42,8 +50,34 @@ public class QuestionManager : MonoBehaviour
             currentLevel = 1;  // ExperienceManager가 없으면 기본 레벨 설정
         }
 
+        // 스프라이트에 맞는 정답/오답 메시지 설정
+        string selectedSprite = PlayerPrefs.GetString("SelectedSprite");
+        if (selectedSprite == "Sprite1")
+        {
+            correctMessage = "정답이다옹!";
+            wrongMessage = "틀렸다옹!";
+        }
+        else if (selectedSprite == "Sprite2")
+        {
+            correctMessage = "정답이다멍!";
+            wrongMessage = "틀렸다멍!";
+        }
+
         SetQuestionForLevel(currentLevel);
     }
+
+    private void SetResultPopupMessage()
+    {
+        if (selectedSprite == "Sprite1")
+        {
+            resultMessageText.text = "수고했다옹!";
+        }
+        else if (selectedSprite == "Sprite2")
+        {
+            resultMessageText.text = "수고했다멍!";
+        }
+    }
+
 
     // 질문을 로드하는 함수 (각 레벨에 맞는 질문을 하드코딩)
     void LoadQuestions()
@@ -217,32 +251,36 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
-    // 정답을 선택했을 때 호출될 함수
     private IEnumerator OnCorrectAnswer(Button button)
     {
         correctAnswersCount++;  // 정답 횟수 증가
-        Debug.Log("정답");
 
-        button.GetComponent<Image>().color = correctColor;  // 정답 버튼을 초록색으로 변경
-        yield return new WaitForSeconds(0.5f);  // 0.5초 후
-        SetQuestionForLevel(1);  // 다음 질문 설정 (레벨에 맞게 변경 가능)
+        // 선택된 스프라이트에 맞는 메시지 출력 (Debug.Log 대신 questionText에 표시)
+        questionText.text = correctMessage;  // questionText에 정답 메시지 출력
+
+        button.GetComponent<Image>().color = correctColor;
+        yield return new WaitForSeconds(0.5f);
+        SetQuestionForLevel(1);  // 다음 질문 설정
     }
 
-    // 오답을 선택했을 때 호출될 함수
     private IEnumerator OnWrongAnswer(Button button)
     {
-        button.GetComponent<Image>().color = wrongColor;  // 오답 버튼을 빨간색으로 변경
+        // 선택된 스프라이트에 맞는 메시지 출력 (Debug.Log 대신 questionText에 표시)
+        questionText.text = wrongMessage;  // questionText에 오답 메시지 출력
+
+        button.GetComponent<Image>().color = wrongColor;
         foreach (var btn in answerButtons)
         {
             if (btn.GetComponentInChildren<TextMeshProUGUI>().text == currentQuestion.correctAnswer)
             {
-                btn.GetComponent<Image>().color = correctColor;  // 정답을 초록색으로 표시
+                btn.GetComponent<Image>().color = correctColor;
                 break;
             }
         }
-        yield return new WaitForSeconds(0.5f);  // 0.5초 후
-        SetQuestionForLevel(1);  // 다음 질문 설정 (레벨에 맞게 변경 가능)
+        yield return new WaitForSeconds(0.5f);
+        SetQuestionForLevel(1);  // 다음 질문 설정
     }
+
 
     private void GiveRewards()
     {

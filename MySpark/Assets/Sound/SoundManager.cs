@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -142,5 +143,17 @@ public class SoundManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGM();
+    }
+
+    // BGM ²ô°í ÄÑ±â
+    public void ToggleBGM(bool isOn)
+    {
+        bgmSource.mute = !isOn;
+    }
+
+    // SE ²ô°í ÄÑ±â
+    public void ToggleSE(bool isOn)
+    {
+        seSource.mute = !isOn;
     }
 }

@@ -8,6 +8,8 @@ public class SelectSprite : MonoBehaviour
     public Sprite[] sprite1Levels = new Sprite[4];  // sprite1의 레벨별 스프라이트
     public Sprite[] sprite2Levels = new Sprite[4];  // sprite2의 레벨별 스프라이트
 
+
+
     private int currentLevel;  // 현재 레벨
 
     private void Start()
