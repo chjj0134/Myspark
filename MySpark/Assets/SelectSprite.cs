@@ -1,39 +1,43 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SelectSprite : MonoBehaviour
 {
-    // 두 가지 스프라이트 캐릭터 각각의 레벨별 스프라이트 배열
-    public Sprite[] sprite1Levels = new Sprite[4];  // sprite1의 레벨별 스프라이트
-    public Sprite[] sprite2Levels = new Sprite[4];  // sprite2의 레벨별 스프라이트
+    public Sprite[] sprite1Levels = new Sprite[4];
+    public Sprite[] sprite2Levels = new Sprite[4];
 
-
-
-    private int currentLevel;  // 현재 레벨
+    private int currentDay;
+    private int selectedSpriteIndex;
 
     private void Start()
     {
-        // 현재 레벨을 ExperienceManager에서 불러오기 (또는 PlayerPrefs에서 불러오기)
-        currentLevel = PlayerPrefs.GetInt("레벨", 1) - 1; // 레벨은 1부터 시작하므로 인덱스를 맞추기 위해 -1
-        currentLevel = Mathf.Clamp(currentLevel, 0, 3);  // 레벨이 1~4에 맞게 클램프
+        // PlayerPrefs에서 현재 날짜 불러오기 (기본값은 1)
+        currentDay = PlayerPrefs.GetInt("현재날짜", 1);
+
+        // 날짜에 따라 스프라이트 인덱스 설정 (1~2일은 0, 3~4일은 1, 5~6일은 2, 7일은 3)
+        if (currentDay <= 2)
+            selectedSpriteIndex = 0;
+        else if (currentDay <= 4)
+            selectedSpriteIndex = 1;
+        else if (currentDay <= 6)
+            selectedSpriteIndex = 2;
+        else
+            selectedSpriteIndex = 3;
     }
 
-    // sprite1 선택 시 레벨에 맞는 스프라이트 설정
     public void SelectSprite1()
     {
         PlayerPrefs.SetString("SelectedSprite", "Sprite1");
-        PlayerPrefs.SetInt("SelectedSpriteLevel", currentLevel);
-        PlayerPrefs.SetString("SelectedSpriteImage", sprite1Levels[currentLevel].name);  // 선택된 스프라이트 이름 저장
+        PlayerPrefs.SetInt("SelectedSpriteLevel", selectedSpriteIndex);
+        PlayerPrefs.SetString("SelectedSpriteImage", sprite1Levels[selectedSpriteIndex].name);
         SceneManager.LoadScene("Main/Main");
     }
 
-    // sprite2 선택 시 레벨에 맞는 스프라이트 설정
     public void SelectSprite2()
     {
         PlayerPrefs.SetString("SelectedSprite", "Sprite2");
-        PlayerPrefs.SetInt("SelectedSpriteLevel", currentLevel);
-        PlayerPrefs.SetString("SelectedSpriteImage", sprite2Levels[currentLevel].name);  // 선택된 스프라이트 이름 저장
+        PlayerPrefs.SetInt("SelectedSpriteLevel", selectedSpriteIndex);
+        PlayerPrefs.SetString("SelectedSpriteImage", sprite2Levels[selectedSpriteIndex].name);
         SceneManager.LoadScene("Main/Main");
     }
 }

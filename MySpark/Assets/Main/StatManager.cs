@@ -57,6 +57,8 @@ public class StatManager : MonoBehaviour
         }
     }
 
+
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("씬 이름: " + scene.name);
@@ -179,18 +181,13 @@ public class StatManager : MonoBehaviour
     // 날짜를 증가시키는 메서드
     public void AdjustDate(int days)
     {
-        ResetDailyStats();
-
         현재날짜 += days;
+        PlayerPrefs.SetInt("현재날짜", 현재날짜);  // 날짜를 PlayerPrefs에 저장
+        PlayerPrefs.Save();
 
         if (현재날짜 > 7)
         {
-            // 7일차를 넘으면 Title 씬으로 이동
             SceneManager.LoadScene("Title");
-        }
-        else
-        {
-            SaveStatsToPlayerPrefs(); // 날짜 변경 시에도 저장
         }
     }
 
