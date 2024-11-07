@@ -898,7 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 557137114}
   resultPopup: {fileID: 0}
-  blackOverlay: {fileID: 0}
+  blackOverlay: {fileID: 1387117809}
 --- !u!4 &375368025
 Transform:
   m_ObjectHideFlags: 0

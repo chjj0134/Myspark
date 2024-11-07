@@ -9794,7 +9794,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 375368024}
         m_TargetAssemblyTypeName: BackToMain, Assembly-CSharp
-        m_MethodName: ClosePopupAndReturnToMain
+        m_MethodName: ClosePopupAndLoadMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

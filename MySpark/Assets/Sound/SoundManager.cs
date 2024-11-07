@@ -72,7 +72,11 @@ public class SoundManager : MonoBehaviour
     // BGM 재생
     public void PlayBGM()
     {
-        if (SceneManager.GetActiveScene().name == "MiniGameScene")
+        // 현재 씬 이름 확인
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        // 씬 이름이 "2"인 경우에만 miniGameBGM 재생, 다른 씬에서는 defaultBGM 재생
+        if (sceneName == "2")
         {
             if (bgmSource.clip != miniGameBGM)
             {
@@ -89,6 +93,7 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
+
 
     // 버튼 클릭 소리 재생
     public void PlayButtonSE()

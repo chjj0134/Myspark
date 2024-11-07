@@ -16,6 +16,8 @@ public class StatManager : MonoBehaviour
     public int 도덕성 = 0;
     public int 골드 = 0;
     public int 현재날짜 = 1;
+    private int 허기최대값 = 10;
+    private int 피로도최대값 = 10;
 
     // 슬라이더 참조
     public Slider 피로도Slider;
@@ -57,9 +59,22 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    public bool CanPerformActivity()
+    {
+        return 허기 < 허기최대값 && 피로도 < 피로도최대값;
+    }
 
+    public void PerformActivity()
+    {
+        if (!CanPerformActivity())
+        {
+            Debug.Log("허기 또는 피로도가 최대치이므로 활동을 할 수 없습니다.");
+            // 여기에서 활동 불가 UI 또는 알림 표시
+            return;
+        }
+    }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("씬 이름: " + scene.name);
 
@@ -174,9 +189,14 @@ public class StatManager : MonoBehaviour
             case "도덕성":
                 도덕성 = Mathf.Clamp(도덕성 + amount, 0, 15);
                 break;
+            case "골드":
+                골드 += amount;
+                break;
         }
-        SaveStatsToPlayerPrefs(); // 스탯이 변경될 때마다 저장
+        SaveStatsToPlayerPrefs(); // 변경된 스탯 즉시 저장
+        UpdateSliders(); // UI 즉시 갱신
     }
+
 
     // 날짜를 증가시키는 메서드
     public void AdjustDate(int days)
@@ -220,7 +240,7 @@ public class StatManager : MonoBehaviour
         PlayerPrefs.SetInt("도덕성", 도덕성);
         PlayerPrefs.SetInt("골드", 골드);
         PlayerPrefs.SetInt("현재날짜", 현재날짜);
-        PlayerPrefs.Save();
+        PlayerPrefs.Save(); 
     }
 
     public void LoadStatsFromPlayerPrefs()

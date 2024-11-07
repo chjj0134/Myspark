@@ -8,6 +8,7 @@ public class SelectSprite : MonoBehaviour
 
     private int currentDay;
     private int selectedSpriteIndex;
+    private bool canSelect = false; // 초기화 시 선택 불가능 상태
 
     private void Start()
     {
@@ -23,10 +24,20 @@ public class SelectSprite : MonoBehaviour
             selectedSpriteIndex = 2;
         else
             selectedSpriteIndex = 3;
+
+        // 0.5초 후 선택 가능하도록 설정
+        Invoke("EnableSelection", 0.5f);
+    }
+
+    private void EnableSelection()
+    {
+        canSelect = true; // 선택 가능 상태로 변경
     }
 
     public void SelectSprite1()
     {
+        if (!canSelect) return; // 선택 불가능할 경우 함수 종료
+
         PlayerPrefs.SetString("SelectedSprite", "Sprite1");
         PlayerPrefs.SetInt("SelectedSpriteLevel", selectedSpriteIndex);
         PlayerPrefs.SetString("SelectedSpriteImage", sprite1Levels[selectedSpriteIndex].name);
@@ -35,6 +46,8 @@ public class SelectSprite : MonoBehaviour
 
     public void SelectSprite2()
     {
+        if (!canSelect) return; // 선택 불가능할 경우 함수 종료
+
         PlayerPrefs.SetString("SelectedSprite", "Sprite2");
         PlayerPrefs.SetInt("SelectedSpriteLevel", selectedSpriteIndex);
         PlayerPrefs.SetString("SelectedSpriteImage", sprite2Levels[selectedSpriteIndex].name);

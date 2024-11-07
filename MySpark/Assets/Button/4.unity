@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1193062629}
         m_TargetAssemblyTypeName: BackToMain, Assembly-CSharp
-        m_MethodName: ClosePopupAndReturnToMain
+        m_MethodName: ClosePopupAndLoadMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2111,7 +2111,7 @@ GameObject:
   - component: {fileID: 1424526916}
   - component: {fileID: 1424526917}
   m_Layer: 0
-  m_Name: Spark (1)
+  m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

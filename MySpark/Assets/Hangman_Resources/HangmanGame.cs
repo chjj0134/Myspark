@@ -48,6 +48,22 @@ public class HangmanGame : MonoBehaviour
     private void Start()
     {
         int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1); // 현재 레벨 가져오기
+
+        // 피로도와 허기 상태 확인
+        if (StatManager.Instance != null)
+        {
+            if (StatManager.Instance.피로도 >= 10)
+            {
+                DisableAlphabetButtons();
+                return;
+            }
+            if (StatManager.Instance.허기 >= 10)
+            {
+                DisableAlphabetButtons();
+                return;
+            }
+        }
+
         SelectRandomWord(currentLevel);
         SetupWordDisplay();
         SetupAlphabetButtons();
@@ -199,7 +215,12 @@ public class HangmanGame : MonoBehaviour
         StatManager.Instance.AdjustStat("피로도", -1);
         StatManager.Instance.AdjustStat("허기", 1);
         StatManager.Instance.AdjustStat("지혜사탕", 1);
+        if (ExperienceManager.Instance != null)
+        {
+            ExperienceManager.Instance.AddExperience(10); // 경험치 10 추가
+        }
     }
+
 
     private bool AllLettersRevealed()
     {

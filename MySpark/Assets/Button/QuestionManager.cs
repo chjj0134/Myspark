@@ -144,49 +144,80 @@ public class QuestionManager : MonoBehaviour
     // 특정 레벨에 해당하는 질문을 설정하는 함수
     public void SetQuestionForLevel(int level)
     {
+
+        // 피로도와 허기가 활동을 막는지 확인
+        if (StatManager.Instance != null)
+        {
+            int currentFatigue = StatManager.Instance.피로도;
+            int currentHunger = StatManager.Instance.허기;
+
+            if (currentFatigue >= 10)
+            {
+                questionText.text = "너무 피곤해서 질문을 할 수 없습니다.";
+                return;
+            }
+
+            if (currentHunger >= 10)
+            {
+                questionText.text = "배가 너무 고파서 질문을 할 수 없습니다.";
+                return;
+            }
+        }
+
+        if (level >= 1 && level <= 5)
+        {
+            level = 1; // 1~5 레벨 범위의 질문을 사용
+        }
+        else if (level >= 6 && level <= 10)
+        {
+            level = 6; // 6~10 레벨 범위의 질문을 사용
+        }
+        else if (level >= 11 && level <= 15)
+        {
+            level = 11; // 11~15 레벨 범위의 질문을 사용
+        }
+        else if (level >= 16 && level <= 20)
+        {
+            level = 16; // 16~20 레벨 범위의 질문을 사용
+        }
+
         currentLevel = level;  // 현재 레벨 저장
 
         // 질문을 10번 초과하면 종료 처리
         if (currentQuestionIndex >= maxQuestions)
         {
-            // 7개 이상 맞췄으면 보상 지급
             if (correctAnswersCount >= 7)
             {
                 GiveRewards();  // 보상 지급
             }
 
             ShowResultPopup();  // 결과 팝업 창 표시
-            Debug.Log("ShowResultPopup 호출 완료!");  // 디버그 로그 추가
+            Debug.Log("ShowResultPopup 호출 완료!");
 
-            // 질문 텍스트를 "모든 대화를 완료하였습니다!"로 설정
             questionText.text = "모든 대화를 완료하였습니다!";
 
-            // 모든 버튼을 회색으로 만들고 비활성화
             foreach (Button button in answerButtons)
             {
-                button.GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f);  // 회색으로 설정
-                button.interactable = false;  // 버튼 비활성화
+                button.GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f);
+                button.interactable = false;
             }
 
-            // 허기 +1, 관심도 +2 적용
             if (StatManager.Instance != null)
             {
                 StatManager.Instance.AdjustStat("허기", 1);
                 StatManager.Instance.AdjustStat("관심도", 2);
-                StatManager.Instance.SaveStatsToPlayerPrefs();  // 스탯 저장
+                StatManager.Instance.SaveStatsToPlayerPrefs();
             }
 
-            return;  // 질문 종료 후 메소드 종료
+            return;
         }
 
-        // 해당 레벨에 질문이 있는지 확인
         if (!levelQuestions.ContainsKey(level))
         {
             Debug.LogError("해당 레벨에 대한 질문이 없습니다.");
             return;
         }
 
-        // 중복 문제 방지 - 이미 나온 질문을 제외한 질문 선택
         List<Question> questionsForLevel = levelQuestions[level];
         List<Question> availableQuestions = questionsForLevel.FindAll(q => !askedQuestions.Contains(q));
 
@@ -196,30 +227,25 @@ public class QuestionManager : MonoBehaviour
             return;
         }
 
-        // 새로운 질문 선택 및 설정
         currentQuestion = availableQuestions[Random.Range(0, availableQuestions.Count)];
-        askedQuestions.Add(currentQuestion);  // 이미 나온 질문을 저장
-        currentQuestionIndex++;  // 질문 수 카운트 증가
+        askedQuestions.Add(currentQuestion);
+        currentQuestionIndex++;
 
-        // 질문 텍스트 설정
         questionText.text = currentQuestion.question;
 
-        // 답변 배열을 무작위로 섞고 버튼에 설정
         List<string> allAnswers = new List<string>(currentQuestion.wrongAnswers);
-        allAnswers.Add(currentQuestion.correctAnswer);  // 정답을 포함
-        ShuffleAnswers(allAnswers);  // 답변을 무작위로 섞음
+        allAnswers.Add(currentQuestion.correctAnswer);
+        ShuffleAnswers(allAnswers);
 
-        // `answerButtons` 배열에 맞춰 답변 설정 (answerButtons 크기와 allAnswers 크기 비교)
-        int answerCount = Mathf.Min(allAnswers.Count, answerButtons.Length);  // 더 작은 값으로 설정
+        int answerCount = Mathf.Min(allAnswers.Count, answerButtons.Length);
 
-        // 각 버튼에 답변 텍스트를 설정하고, 클릭 이벤트를 제거 및 추가
         for (int i = 0; i < answerCount; i++)
         {
-            int index = i;  // 지역 변수로 현재 인덱스를 저장
-            answerButtons[index].gameObject.SetActive(true);  // 비활성화된 버튼이 있으면 다시 활성화
+            int index = i;
+            answerButtons[index].gameObject.SetActive(true);
             answerButtons[index].GetComponentInChildren<TextMeshProUGUI>().text = allAnswers[index];
-            answerButtons[index].onClick.RemoveAllListeners();  // 기존 이벤트 제거
-            answerButtons[index].GetComponent<Image>().color = defaultColor;  // 버튼 색상 초기화
+            answerButtons[index].onClick.RemoveAllListeners();
+            answerButtons[index].GetComponent<Image>().color = defaultColor;
 
             if (allAnswers[index] == currentQuestion.correctAnswer)
             {
@@ -231,12 +257,12 @@ public class QuestionManager : MonoBehaviour
             }
         }
 
-        // 사용하지 않는 나머지 버튼들은 비활성화
         for (int i = answerCount; i < answerButtons.Length; i++)
         {
             answerButtons[i].gameObject.SetActive(false);
         }
     }
+
 
 
     // 답변을 무작위로 섞는 함수
@@ -255,18 +281,17 @@ public class QuestionManager : MonoBehaviour
     {
         correctAnswersCount++;  // 정답 횟수 증가
 
-        // 선택된 스프라이트에 맞는 메시지 출력 (Debug.Log 대신 questionText에 표시)
-        questionText.text = correctMessage;  // questionText에 정답 메시지 출력
+        // 선택된 스프라이트에 맞는 메시지 출력
+        questionText.text = correctMessage;
 
         button.GetComponent<Image>().color = correctColor;
         yield return new WaitForSeconds(0.5f);
-        SetQuestionForLevel(1);  // 다음 질문 설정
+        SetQuestionForLevel(currentLevel);  // 다음 질문 설정 시 현재 레벨 유지
     }
 
     private IEnumerator OnWrongAnswer(Button button)
     {
-        // 선택된 스프라이트에 맞는 메시지 출력 (Debug.Log 대신 questionText에 표시)
-        questionText.text = wrongMessage;  // questionText에 오답 메시지 출력
+        questionText.text = wrongMessage;
 
         button.GetComponent<Image>().color = wrongColor;
         foreach (var btn in answerButtons)
@@ -278,7 +303,7 @@ public class QuestionManager : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(0.5f);
-        SetQuestionForLevel(1);  // 다음 질문 설정
+        SetQuestionForLevel(currentLevel);  // 다음 질문 설정 시 현재 레벨 유지
     }
 
 
@@ -287,23 +312,29 @@ public class QuestionManager : MonoBehaviour
         int totalWisdom = baseRewardWisdom;  // 기본 지혜로움 보상
         int totalExperience = baseRewardExperience;  // 기본 경험치 보상
         int totalCandies = 0;  // 지혜사탕 개수 (기본값 0)
+
         if (correctAnswersCount >= 7)
         {
             totalCandies = bonusWisdom;  // 추가 지혜사탕 보상 (7개 이상 맞추면)
-            totalExperience += bonusExperience;  // 추가 경험치 보상
+            totalExperience += bonusExperience;  // 추가 경험치 보상 + 경험치 20 추가
         }
 
-        // StatManager에 보상을 반영
+        // StatManager에 지혜로움 및 지혜사탕 보상을 반영
         if (StatManager.Instance != null)
         {
             StatManager.Instance.AdjustStat("지혜로움", totalWisdom);  // 지혜로움 추가
-            StatManager.Instance.AdjustStat("경험치", totalExperience);  // 경험치 추가
             StatManager.Instance.AdjustStat("지혜사탕", totalCandies);  // 지혜사탕 추가
             StatManager.Instance.SaveStatsToPlayerPrefs();  // 스탯 저장
         }
 
+        // ExperienceManager에서 경험치 추가
+        if (ExperienceManager.Instance != null)
+        {
+            ExperienceManager.Instance.AddExperience(totalExperience);  // 경험치 추가
+        }
+
         // 결과 팝업에 보상 표시
-        wisdomText.text = $"스파크의 지혜로움 +{totalWisdom}";
+        wisdomText.text = $"지혜로움 +{totalWisdom}";
         experienceText.text = $"경험치 +{totalExperience}";
 
         // 지혜사탕 텍스트에 지혜사탕 값 표시
