@@ -1790,6 +1790,26 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3713edc6c2cab14418fcb9d52bc3c0e1, type: 3}
   - {fileID: 21300000, guid: 470331b83cf671745babbc067ea685d6, type: 3}
   - {fileID: 21300000, guid: 244fa22f03fe6934aa65b486d1bb41de, type: 3}
+  dirtySprite1Levels:
+  - {fileID: 21300000, guid: 533ca06d92d4e4645bbedd029eefd2e3, type: 3}
+  - {fileID: 21300000, guid: c69d846e52de31845b1aff27afe1a30f, type: 3}
+  - {fileID: 21300000, guid: 3fddba5782581064bb567d02b1fafac2, type: 3}
+  - {fileID: 21300000, guid: 5e66050a962e55d4dbed9c3bc449f8ec, type: 3}
+  dirtySprite2Levels:
+  - {fileID: 21300000, guid: 1163b501ce583484e816bb7eb76b6292, type: 3}
+  - {fileID: 21300000, guid: 443ee0cc70bed2940a03b0ea143f5a83, type: 3}
+  - {fileID: 21300000, guid: 9a5ef529944ceda4a87e0a7994172bed, type: 3}
+  - {fileID: 21300000, guid: dc9c0c5052965e546a36aaeb75f92ae8, type: 3}
+  hungrySprite1Levels:
+  - {fileID: 21300000, guid: 3eb7c469b62f8c14aacc9160db91409e, type: 3}
+  - {fileID: 21300000, guid: 338f50fdcccb9db4cb2a9491af794979, type: 3}
+  - {fileID: 21300000, guid: 620571f78ae93db4798780e754acf5ba, type: 3}
+  - {fileID: 21300000, guid: 7d937e274a3243f409d60c1356d26860, type: 3}
+  hungrySprite2Levels:
+  - {fileID: 21300000, guid: 486f5faf07edad74680bcd7d787ed771, type: 3}
+  - {fileID: 21300000, guid: b1cbf1a4d5741394196478a4841af72c, type: 3}
+  - {fileID: 21300000, guid: cfb77e7e46c60ef44912e8872f41d166, type: 3}
+  - {fileID: 21300000, guid: be1b0ba5c7f8e1946b4417c87531f9a0, type: 3}
 --- !u!212 &1301654901
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2192,6 +2212,26 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3713edc6c2cab14418fcb9d52bc3c0e1, type: 3}
   - {fileID: 21300000, guid: 470331b83cf671745babbc067ea685d6, type: 3}
   - {fileID: 21300000, guid: 244fa22f03fe6934aa65b486d1bb41de, type: 3}
+  dirtySprite1Levels:
+  - {fileID: 21300000, guid: 533ca06d92d4e4645bbedd029eefd2e3, type: 3}
+  - {fileID: 21300000, guid: c69d846e52de31845b1aff27afe1a30f, type: 3}
+  - {fileID: 21300000, guid: 3fddba5782581064bb567d02b1fafac2, type: 3}
+  - {fileID: 21300000, guid: 5e66050a962e55d4dbed9c3bc449f8ec, type: 3}
+  dirtySprite2Levels:
+  - {fileID: 21300000, guid: 1163b501ce583484e816bb7eb76b6292, type: 3}
+  - {fileID: 21300000, guid: 443ee0cc70bed2940a03b0ea143f5a83, type: 3}
+  - {fileID: 21300000, guid: 9a5ef529944ceda4a87e0a7994172bed, type: 3}
+  - {fileID: 21300000, guid: dc9c0c5052965e546a36aaeb75f92ae8, type: 3}
+  hungrySprite1Levels:
+  - {fileID: 21300000, guid: 3eb7c469b62f8c14aacc9160db91409e, type: 3}
+  - {fileID: 21300000, guid: 338f50fdcccb9db4cb2a9491af794979, type: 3}
+  - {fileID: 21300000, guid: 620571f78ae93db4798780e754acf5ba, type: 3}
+  - {fileID: 21300000, guid: 7d937e274a3243f409d60c1356d26860, type: 3}
+  hungrySprite2Levels:
+  - {fileID: 21300000, guid: 486f5faf07edad74680bcd7d787ed771, type: 3}
+  - {fileID: 21300000, guid: b1cbf1a4d5741394196478a4841af72c, type: 3}
+  - {fileID: 21300000, guid: cfb77e7e46c60ef44912e8872f41d166, type: 3}
+  - {fileID: 21300000, guid: be1b0ba5c7f8e1946b4417c87531f9a0, type: 3}
 --- !u!4 &1424526918
 Transform:
   m_ObjectHideFlags: 0

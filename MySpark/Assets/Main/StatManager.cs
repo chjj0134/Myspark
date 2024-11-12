@@ -2,10 +2,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class StatManager : MonoBehaviour
 {
     public static StatManager Instance { get; private set; }
+
+    //특수 상황 돌입(더러움,피로도)
+    public UnityEvent OnDirtyState;
+    public UnityEvent OnHungryState;
+
+    //상태 복귀
+    public UnityEvent OnNormalFatigueState;
+    public UnityEvent OnNormalHungerState;
+
+    //날짜 변경 이벤트
+    public UnityEvent OnDateChanged;
 
     // 스탯 변수
     public int 피로도 = 0;
@@ -18,6 +30,35 @@ public class StatManager : MonoBehaviour
     public int 현재날짜 = 1;
     private int 허기최대값 = 10;
     private int 피로도최대값 = 10;
+
+    // 엔딩 조건 체크 메서드
+    public void CheckForEnding()
+    {
+        if (현재날짜 > 7)
+        {
+            string endingType = DetermineEndingType();
+            PlayerPrefs.SetString("EndingType", endingType);
+            SceneManager.LoadScene("Ending/Ending");
+        }
+    }
+
+    private string DetermineEndingType()
+    {
+        if (관심도 < 10)
+            return "Runaway"; // 가출 엔딩
+        else if (관심도 >= 10 && 튼튼함 >= 11 && 지혜로움 >= 11 && 도덕성 >= 11)
+            return "CEO"; // 대기업 CEO 엔딩
+        else if (관심도 >= 10)
+        {
+            if (튼튼함 >= 지혜로움 && 튼튼함 >= 도덕성)
+                return "Police";
+            else if (지혜로움 >= 튼튼함 && 지혜로움 >= 도덕성)
+                return "Scientist";
+            else
+                return "Politician";
+        }
+        return "Default";
+    }
 
     // 슬라이더 참조
     public Slider 피로도Slider;
@@ -36,6 +77,11 @@ public class StatManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            OnDirtyState = new UnityEvent();
+            OnHungryState = new UnityEvent();
+            OnNormalFatigueState = new UnityEvent();
+            OnNormalHungerState = new UnityEvent();
+            OnDateChanged = new UnityEvent();
 
             // 처음 시작 여부를 판단
             if (PlayerPrefs.GetInt("게임시작됨", 0) == 0)
@@ -164,6 +210,31 @@ public class StatManager : MonoBehaviour
         {
             Gold.text = "Gold: " + 골드.ToString();
         }
+
+        CheckStates();
+    }
+
+    private void CheckStates()
+    {
+        // 피로도 상태 체크
+        if (피로도 >= 10)
+        {
+            OnDirtyState.Invoke();
+        }
+        else if (피로도 < 10)
+        {
+            OnNormalFatigueState.Invoke();
+        }
+
+        // 허기 상태 체크
+        if (허기 >= 10)
+        {
+            OnHungryState.Invoke();
+        }
+        else if (허기 < 10)
+        {
+            OnNormalHungerState.Invoke();
+        }
     }
 
     // 스탯 값을 변경하는 메서드
@@ -209,12 +280,20 @@ public class StatManager : MonoBehaviour
         {
             SceneManager.LoadScene("Title");
         }
+        else
+        {
+            OnDateChanged.Invoke(); // 날짜 변경 시 이벤트 호출
+        }
     }
 
-    private void ResetDailyStats()
+    public void ResetDailyStats()
     {
         피로도 = 0;
+        허기 = 0;
+        SaveStatsToPlayerPrefs(); // 변경 사항 저장
+        UpdateSliders(); // UI 즉시 갱신
     }
+
 
     // 스탯 초기화 메서드 (Title 씬에서만 실행)
     public void ResetStats()

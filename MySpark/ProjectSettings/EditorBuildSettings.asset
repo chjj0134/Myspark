@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Button/5.unity
     guid: 96a9e8cad82955647a1bb020fc13b82b
+  - enabled: 1
+    path: Assets/Ending/Ending.unity
+    guid: fad2259f3fb66e24f90dcbc631a616e6
   m_configObjects: {}
