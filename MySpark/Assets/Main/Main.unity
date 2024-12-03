@@ -2205,7 +2205,7 @@ MonoBehaviour:
   statChangeText2: {fileID: 683153988}
   statChangeText3: {fileID: 602027444}
   videoClips:
-  - {fileID: 32900000, guid: b4e0506c71e0513479b5de88837bc37f, type: 3}
+  - {fileID: 32900000, guid: e091eeefa28f9584d97171aede064486, type: 3}
   - {fileID: 32900000, guid: b4e0506c71e0513479b5de88837bc37f, type: 3}
   - {fileID: 32900000, guid: b4e0506c71e0513479b5de88837bc37f, type: 3}
   - {fileID: 32900000, guid: 54bb5d7fc781f1341818f4d8bc9338f9, type: 3}
@@ -10764,6 +10764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dateText: {fileID: 1901937978}
   nextDayButton: {fileID: 1467905463}
+  fadeImage: {fileID: 1351144545}
 --- !u!4 &1980048413
 Transform:
   m_ObjectHideFlags: 0
