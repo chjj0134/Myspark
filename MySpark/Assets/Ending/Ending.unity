@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7212524, y: 18.54004}
+  m_AnchoredPosition: {x: -2.7212677, y: 18.54004}
   m_SizeDelta: {x: 321.68994, y: 12.409912}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18888539
@@ -699,7 +699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -149.7, y: 34}
+  m_AnchoredPosition: {x: -149.70001, y: 34}
   m_SizeDelta: {x: 83.70999, y: 83.12799}
   m_Pivot: {x: -0.78168756, y: 3.613666}
 --- !u!1 &1301142506
@@ -949,16 +949,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1652255947}
   returnToTitleButton: {fileID: 1254699420}
-  runawaySprite1Clip: {fileID: 32900000, guid: b4e0506c71e0513479b5de88837bc37f, type: 3}
-  runawaySprite2Clip: {fileID: 32900000, guid: b4e0506c71e0513479b5de88837bc37f, type: 3}
-  ceoSprite1Clip: {fileID: 32900000, guid: 54bb5d7fc781f1341818f4d8bc9338f9, type: 3}
-  ceoSprite2Clip: {fileID: 32900000, guid: 54bb5d7fc781f1341818f4d8bc9338f9, type: 3}
-  policeSprite1Clip: {fileID: 32900000, guid: 85e02de7a14f6a94d81530e1e445f742, type: 3}
-  policeSprite2Clip: {fileID: 32900000, guid: 85e02de7a14f6a94d81530e1e445f742, type: 3}
-  scientistSprite1Clip: {fileID: 32900000, guid: 024137b513aa42848bd318feaf511cb2, type: 3}
-  scientistSprite2Clip: {fileID: 32900000, guid: 024137b513aa42848bd318feaf511cb2, type: 3}
-  politicianSprite1Clip: {fileID: 32900000, guid: 81aaea539fbeec744bb75ecee9c624da, type: 3}
-  politicianSprite2Clip: {fileID: 32900000, guid: 81aaea539fbeec744bb75ecee9c624da, type: 3}
+  runawaySprite1Clip: {fileID: 32900000, guid: 14df3894246fa474f886d7a3d2dc2a0d, type: 3}
+  runawaySprite2Clip: {fileID: 32900000, guid: 1381f2ee65d1abd4a98b13921ff46f22, type: 3}
+  ceoSprite1Clip: {fileID: 32900000, guid: 7481bfb734da2034fab331755298bf85, type: 3}
+  ceoSprite2Clip: {fileID: 32900000, guid: 5b22007bcb33a7c4da8afe2944c3f436, type: 3}
+  policeSprite1Clip: {fileID: 32900000, guid: a5f771d7092eeb940a65ccb7dbdcd98c, type: 3}
+  policeSprite2Clip: {fileID: 32900000, guid: 9209393ca9c14de4a972dbd8a812c2e1, type: 3}
+  scientistSprite1Clip: {fileID: 32900000, guid: 2f0e1a394748a6247ba4b67ea740dc74, type: 3}
+  scientistSprite2Clip: {fileID: 32900000, guid: 25a3ff8ed334ffb41ae3607e6dc0d2bc, type: 3}
+  politicianSprite1Clip: {fileID: 32900000, guid: 793797d167c67254aba5776ed12da9bb, type: 3}
+  politicianSprite2Clip: {fileID: 32900000, guid: d816f6a31091d794b979ff3537c72dda, type: 3}
 --- !u!4 &1772999451
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,8 +1098,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 8.8725}
-  m_SizeDelta: {x: 733.5, y: 1074.7}
+  m_AnchoredPosition: {x: 6.9, y: -31.64}
+  m_SizeDelta: {x: 1041.6, y: 1817.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2064825122
 MonoBehaviour:
