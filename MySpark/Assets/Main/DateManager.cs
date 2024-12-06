@@ -28,6 +28,8 @@ public class DateManager : MonoBehaviour
             // 날짜 증가
             StatManager.Instance.AdjustDate(1);
 
+            Debug.Log($"NextDay 호출 후 현재 날짜: {StatManager.Instance.현재날짜}");
+
             // 허기와 피로도 초기화
             StatManager.Instance.ResetDailyStats();
 
@@ -45,6 +47,7 @@ public class DateManager : MonoBehaviour
             StartCoroutine(ResetProcessingAfterSE(SoundManager.instance.sleepEff.length));
         }));
     }
+
 
     private IEnumerator FadeToBlack(System.Action onComplete)
     {

@@ -6231,7 +6231,7 @@ MonoBehaviour:
   sprite2Levels:
   - {fileID: 21300000, guid: e2750a057e6f20f40b377943d43563af, type: 3}
   - {fileID: 21300000, guid: 3713edc6c2cab14418fcb9d52bc3c0e1, type: 3}
-  - {fileID: 21300000, guid: 470331b83cf671745babbc067ea685d6, type: 3}
+  - {fileID: 21300000, guid: 20630044657201e48b59e23d12c7629c, type: 3}
   - {fileID: 21300000, guid: 244fa22f03fe6934aa65b486d1bb41de, type: 3}
   dirtySprite1Levels:
   - {fileID: 21300000, guid: 533ca06d92d4e4645bbedd029eefd2e3, type: 3}

@@ -15,75 +15,106 @@ public class VideoPopupManager : MonoBehaviour
     public TextMeshProUGUI statChangeText2; // 두 번째 스탯 변화 텍스트
     public TextMeshProUGUI statChangeText3; // 세 번째 스탯 변화 텍스트
 
-    // 총 24개의 비디오 클립 배열 (2명의 캐릭터 x 4레벨 x 3알바 유형 = 24)
-    public VideoClip[] videoClips;
+    public VideoClip[] videoClips; // 비디오 클립 배열
 
     private int currentLevel; // 날짜에 따른 현재 레벨
     private int selectedSpriteIndex; // 선택된 스프라이트 인덱스
     private int jobIndex; // 선택된 알바의 인덱스
 
-    private void Start()
+    private void OnEnable()
     {
-        // 현재 날짜 가져와 레벨 계산
-        int currentDay = PlayerPrefs.GetInt("현재날짜", 1);
-        currentLevel = (currentDay <= 2) ? 0 : (currentDay <= 4) ? 1 : (currentDay <= 6) ? 2 : 3;
+        if (StatManager.Instance != null)
+        {
+            // 날짜 변경 이벤트 등록
+            StatManager.Instance.OnDateChanged.AddListener(ResetStateForNewDay);
+        }
 
-        // 스프라이트 인덱스 결정 (PlayerPrefs에 저장된 선택된 스프라이트로 결정)
-        selectedSpriteIndex = PlayerPrefs.GetString("SelectedSprite") == "Sprite1" ? 0 : 1;
+        if (StatManager.Instance != null)
+        {
+            currentLevel = StatManager.Instance.GetSpriteLevelByDay();
+            Debug.Log($"OnEnable에서 초기화된 레벨: {currentLevel}");
 
-        // 비디오 플레이어에 재생 종료 이벤트 추가
-        videoPlayer.loopPointReached += OnVideoFinished;
+            selectedSpriteIndex = PlayerPrefs.GetString("SelectedSprite") == "Sprite1" ? 0 : 1;
+
+            if (videoPlayer != null)
+            {
+                videoPlayer.loopPointReached += OnVideoFinished;
+            }
+        }
+        else
+        {
+            Debug.LogError("StatManager.Instance가 초기화되지 않았습니다.");
+        }
     }
 
-    // 각 버튼 클릭 시 비디오 재생
-    // 각 버튼 클릭 시 비디오 재생
+    private void OnDisable()
+    {
+        if (StatManager.Instance != null)
+        {
+            StatManager.Instance.OnDateChanged.RemoveListener(ResetStateForNewDay);
+        }
+
+        if (videoPlayer != null)
+        {
+            videoPlayer.loopPointReached -= OnVideoFinished;
+        }
+    }
+
+    private void ResetStateForNewDay()
+    {
+        // 날짜 변경 시 레벨 재계산
+        currentLevel = StatManager.Instance.GetSpriteLevelByDay();
+        Debug.Log($"날짜 변경으로 초기화된 레벨: {currentLevel}");
+    }
+
     public void OnJobButtonClicked(int selectedJobIndex)
     {
-        // 피로도와 허기 상태 확인
         if (StatManager.Instance != null)
         {
             if (StatManager.Instance.피로도 >= 10)
             {
                 resultBalloonText.text = "너무 피곤해서 알바를 할 수 없습니다!";
-                jobPopup.SetActive(false); // 알바하기 팝업 닫기
-                resultPopup.SetActive(true); // 결과 팝업 열기 (안내 메시지 표시)
+                jobPopup.SetActive(false);
+                resultPopup.SetActive(true);
                 return;
             }
+
             if (StatManager.Instance.허기 >= 10)
             {
                 resultBalloonText.text = "배가 고파서 알바를 할 수 없습니다!";
-                jobPopup.SetActive(false); // 알바하기 팝업 닫기
-                resultPopup.SetActive(true); // 결과 팝업 열기 (안내 메시지 표시)
+                jobPopup.SetActive(false);
+                resultPopup.SetActive(true);
                 return;
             }
         }
 
-        // 알바하기 팝업 닫고 비디오 팝업 열기
         jobPopup.SetActive(false);
         videoPopup.SetActive(true);
-        jobIndex = selectedJobIndex; // 선택된 알바 인덱스 저장
+        jobIndex = selectedJobIndex;
 
-        // 현재 레벨과 선택된 스프라이트에 따라 적절한 비디오 클립 설정
         int videoClipIndex = selectedSpriteIndex * 12 + currentLevel * 3 + jobIndex;
-        videoPlayer.clip = videoClips[videoClipIndex];
-        videoPlayer.Play(); // 비디오 재생
+        Debug.Log($"VideoClipIndex: {videoClipIndex}, Sprite: {selectedSpriteIndex}, Level: {currentLevel}, Job: {jobIndex}");
+
+        if (videoClipIndex >= 0 && videoClipIndex < videoClips.Length)
+        {
+            videoPlayer.clip = videoClips[videoClipIndex];
+            videoPlayer.Play();
+        }
+        else
+        {
+            Debug.LogError($"Invalid VideoClipIndex: {videoClipIndex}. Check videoClips array.");
+        }
     }
 
-
-    // 비디오 재생이 완료되면 호출되는 메서드
     private void OnVideoFinished(VideoPlayer vp)
     {
-        videoPopup.SetActive(false); // 비디오 팝업 닫기
-        resultPopup.SetActive(true); // 결과 팝업 열기
+        videoPopup.SetActive(false);
+        resultPopup.SetActive(true);
 
-        // 스탯 변경
         AdjustStatsForJob();
-
-        // 결과 텍스트 설정
         SetResultText();
     }
 
-    // 알바에 따른 스탯 변경 메서드
     private void AdjustStatsForJob()
     {
         if (StatManager.Instance == null)
@@ -92,7 +123,6 @@ public class VideoPopupManager : MonoBehaviour
             return;
         }
 
-        // 알바에 따른 스탯 변화
         switch (jobIndex)
         {
             case 0: // Kids
@@ -102,7 +132,6 @@ public class VideoPopupManager : MonoBehaviour
                 StatManager.Instance.AdjustStat("지혜로움", -1);
                 StatManager.Instance.AdjustStat("도덕성", -1);
                 break;
-
             case 1: // English
                 StatManager.Instance.AdjustStat("피로도", 3);
                 StatManager.Instance.AdjustStat("허기", 1);
@@ -110,7 +139,6 @@ public class VideoPopupManager : MonoBehaviour
                 StatManager.Instance.AdjustStat("지혜로움", 2);
                 StatManager.Instance.AdjustStat("도덕성", -1);
                 break;
-
             case 2: // Volunteer
                 StatManager.Instance.AdjustStat("피로도", 3);
                 StatManager.Instance.AdjustStat("허기", 1);
@@ -120,34 +148,27 @@ public class VideoPopupManager : MonoBehaviour
                 break;
         }
 
-        // 알바 완료 후 골드 150 추가
         StatManager.Instance.AdjustStat("골드", 150);
     }
 
-    // 스프라이트와 알바에 따른 결과 텍스트 설정
     private void SetResultText()
     {
-        Debug.Log("Current jobIndex: " + jobIndex); // jobIndex 값 확인
-
         string selectedSprite = PlayerPrefs.GetString("SelectedSprite");
         resultBalloonText.text = selectedSprite == "Sprite1" ? "힘들었다옹!" : "힘들었다멍!";
 
-        // 스탯 변화 텍스트 설정
         switch (jobIndex)
         {
-            case 0: // Kids
+            case 0:
                 statChangeText1.text = "튼튼함 +3";
                 statChangeText2.text = "지혜로움 -1";
                 statChangeText3.text = "도덕성 -1";
                 break;
-
-            case 1: // English
+            case 1:
                 statChangeText1.text = "튼튼함 -1";
                 statChangeText2.text = "지혜로움 +2";
                 statChangeText3.text = "도덕성 -1";
                 break;
-
-            case 2: // Volunteer
+            case 2:
                 statChangeText1.text = "튼튼함 -1";
                 statChangeText2.text = "지혜로움 -1";
                 statChangeText3.text = "도덕성 +3";
@@ -155,13 +176,12 @@ public class VideoPopupManager : MonoBehaviour
         }
     }
 
-    // 결과 팝업 닫기
     public void CloseResultPopup()
     {
-        resultPopup.SetActive(false); // 결과 팝업 닫기
+        resultPopup.SetActive(false);
         if (black != null)
         {
-            black.SetActive(false); // 검은 배경 창 닫기
+            black.SetActive(false);
         }
     }
 }

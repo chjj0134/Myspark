@@ -1865,7 +1865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7212677, y: 18.54004}
+  m_AnchoredPosition: {x: -2.7211914, y: 18.54004}
   m_SizeDelta: {x: 321.69, y: 12.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &348236490
@@ -2203,7 +2203,7 @@ MonoBehaviour:
   statChangeText2: {fileID: 683153988}
   statChangeText3: {fileID: 602027444}
   videoClips:
-  - {fileID: 32900000, guid: 2b7404a9f9811ba428930b9ad976982d, type: 3}
+  - {fileID: 32900000, guid: e091eeefa28f9584d97171aede064486, type: 3}
   - {fileID: 32900000, guid: 94048e1ab59e04e49bad56852560daba, type: 3}
   - {fileID: 32900000, guid: 787f38fd19d82d545809301c26f26f2a, type: 3}
   - {fileID: 32900000, guid: 4362528691c06e244b7da53f0e4624e7, type: 3}
@@ -2446,7 +2446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.0000153, y: 18.597412}
+  m_AnchoredPosition: {x: -4, y: 18.597412}
   m_SizeDelta: {x: 104.34253, y: -146.19495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &432244515
@@ -4407,7 +4407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -24.799988, y: -157}
+  m_AnchoredPosition: {x: -24.800049, y: -157}
   m_SizeDelta: {x: 121.38, y: 112.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709642608
@@ -5267,7 +5267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.3666534, y: 11.05249}
+  m_AnchoredPosition: {x: -5.366699, y: 11.05249}
   m_SizeDelta: {x: 113.59072, y: -179.50505}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961167082
@@ -9406,7 +9406,7 @@ MonoBehaviour:
   sprite2Levels:
   - {fileID: 21300000, guid: e2750a057e6f20f40b377943d43563af, type: 3}
   - {fileID: 21300000, guid: 3713edc6c2cab14418fcb9d52bc3c0e1, type: 3}
-  - {fileID: 21300000, guid: 470331b83cf671745babbc067ea685d6, type: 3}
+  - {fileID: 21300000, guid: 20630044657201e48b59e23d12c7629c, type: 3}
   - {fileID: 21300000, guid: 244fa22f03fe6934aa65b486d1bb41de, type: 3}
   dirtySprite1Levels:
   - {fileID: 21300000, guid: 533ca06d92d4e4645bbedd029eefd2e3, type: 3}
@@ -11027,7 +11027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7212677, y: 18.54004}
+  m_AnchoredPosition: {x: -2.7211914, y: 18.54004}
   m_SizeDelta: {x: 321.69, y: 12.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2066146792

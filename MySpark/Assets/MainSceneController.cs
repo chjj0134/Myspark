@@ -43,11 +43,7 @@ public class MainSceneController : MonoBehaviour
 
     private int GetSpriteLevelByDay()
     {
-        int currentDay = StatManager.Instance.현재날짜;
-        if (currentDay <= 2) return 0;
-        else if (currentDay <= 4) return 1;
-        else if (currentDay <= 6) return 2;
-        else return 3;
+        return StatManager.Instance.GetSpriteLevelByDay();
     }
 
     private void SetDirtySprite()

@@ -170,6 +170,8 @@ public class StatManager : MonoBehaviour
         Gold = GameObject.Find("Gold")?.GetComponent<TextMeshProUGUI>();
 
         UpdateSliders(); // OnEnable에서 슬라이더 값 동기화
+
+
     }
 
     private void OnDisable()
@@ -186,6 +188,13 @@ public class StatManager : MonoBehaviour
     private void Update()
     {
         UpdateSliders(); // 매 프레임마다 슬라이더 값 업데이트
+
+        // 현재 날짜를 동기화
+        if (dateText != null)
+        {
+            dateText.text = "Day: " + StatManager.Instance.현재날짜.ToString();
+            //Debug.Log($"DateManager Update: Day {StatManager.Instance.현재날짜}");
+        }
     }
 
     public void UpdateSliders()
@@ -273,8 +282,13 @@ public class StatManager : MonoBehaviour
     public void AdjustDate(int days)
     {
         현재날짜 += days;
-        PlayerPrefs.SetInt("현재날짜", 현재날짜);  // 날짜를 PlayerPrefs에 저장
+
+        // PlayerPrefs 업데이트
+        PlayerPrefs.SetInt("CurrentDay", 현재날짜);
+        PlayerPrefs.SetInt("현재날짜", 현재날짜); // 중복으로 저장되어 있는지 확인
         PlayerPrefs.Save();
+
+        //Debug.Log($"AdjustDate 호출: 현재 날짜 = {현재날짜}");
 
         if (현재날짜 > 7)
         {
@@ -282,9 +296,17 @@ public class StatManager : MonoBehaviour
         }
         else
         {
-            OnDateChanged.Invoke(); // 날짜 변경 시 이벤트 호출
+            OnDateChanged.Invoke(); // 날짜 변경 이벤트 호출
         }
     }
+
+    public int GetCurrentDay()
+    {
+        int currentDay = PlayerPrefs.GetInt("CurrentDay", 1); // 기본값 1
+        //Debug.Log($"PlayerPrefs에서 가져온 현재 날짜: {currentDay}");
+        return currentDay;
+    }
+
 
     public void ResetDailyStats()
     {
@@ -333,4 +355,18 @@ public class StatManager : MonoBehaviour
         골드 = PlayerPrefs.GetInt("골드", 0);
         현재날짜 = PlayerPrefs.GetInt("현재날짜", 1);
     }
+
+    public int GetSpriteLevelByDay()
+    {
+        int currentDay = 현재날짜; // PlayerPrefs 대신 현재 메모리 상태 사용
+       //Debug.Log($"현재날짜(StatManager): {currentDay}");
+
+        // 레벨 계산
+        int level = (currentDay - 1) / 2;
+        level = Mathf.Clamp(level, 0, 3);
+
+        //Debug.Log($"계산된 레벨: {level}");
+        return level;
+    }
+
 }

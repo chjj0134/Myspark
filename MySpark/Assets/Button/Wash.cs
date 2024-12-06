@@ -33,8 +33,12 @@ public class Wash : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("SelectedSpriteLevel", 1) - 1;
         currentLevel = Mathf.Clamp(currentLevel, 0, player1Sprites.Length - 1);
 
-        playerSpriteRenderer.sprite = selectedSprite == "Sprite1" ? player1Sprites[currentLevel] : player2Sprites[currentLevel];
-        originalSprite = playerSpriteRenderer.sprite;
+        // 날짜에 따른 스프라이트 초기화
+        int dayLevel = GetSpriteLevelByDay();
+        playerSpriteRenderer.sprite = selectedSprite == "Sprite1"
+            ? player1Sprites[dayLevel]
+            : player2Sprites[dayLevel];
+        originalSprite = playerSpriteRenderer.sprite; // originalSprite를 현재 레벨에 맞게 설정
         SaveDefaultSprite();
 
         washButton1.onClick.AddListener(() =>
@@ -42,7 +46,7 @@ public class Wash : MonoBehaviour
             if (!isWashButton1Used)
             {
                 ActivateWashButton2WithDelay();
-                isWashButton1Used = true; // 사용 완료 표시
+                isWashButton1Used = true;
             }
         });
 
@@ -51,10 +55,11 @@ public class Wash : MonoBehaviour
             if (!isWashButton2Used)
             {
                 StartCoroutine(ShowPopupAndAdjustStats());
-                isWashButton2Used = true; // 사용 완료 표시
+                isWashButton2Used = true;
             }
         });
     }
+
 
     private void SaveDefaultSprite()
     {
@@ -65,12 +70,22 @@ public class Wash : MonoBehaviour
     private void ActivateWashButton2WithDelay()
     {
         SoundManager.instance.PlaySpecialEffect("ShowerButton");
-        playerSpriteRenderer.sprite = selectedSprite == "Sprite1" ? player1Sprites[currentLevel] : player2Sprites[currentLevel];
+
+        // 현재 날짜 기준으로 레벨 가져오기
+        int dayLevel = GetSpriteLevelByDay();
+
+        // 캐릭터 스프라이트 설정
+        playerSpriteRenderer.sprite = selectedSprite == "Sprite1" ? player1Sprites[dayLevel] : player2Sprites[dayLevel];
 
         float showerEffDuration = SoundManager.instance.showerEff.length;
         StartCoroutine(ResetSpriteAfterDelay(showerEffDuration));
         DisableButton(washButton1);
         StartCoroutine(EnableButtonAfterDelay(washButton2, showerEffDuration));
+    }
+
+    private int GetSpriteLevelByDay()
+    {
+        return StatManager.Instance.GetSpriteLevelByDay();
     }
 
     private IEnumerator ShowPopupAndAdjustStats()
@@ -102,8 +117,15 @@ public class Wash : MonoBehaviour
     private IEnumerator ResetSpriteAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        // Reset할 때 레벨에 맞는 원래 스프라이트 적용
+        int dayLevel = GetSpriteLevelByDay();
+        originalSprite = selectedSprite == "Sprite1"
+            ? player1Sprites[dayLevel]
+            : player2Sprites[dayLevel]; // 레벨에 맞는 스프라이트로 갱신
         playerSpriteRenderer.sprite = originalSprite;
     }
+
 
     private IEnumerator EnableButtonAfterDelay(Button button, float delay)
     {
